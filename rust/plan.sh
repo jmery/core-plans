@@ -33,7 +33,7 @@ _target_sources=(
 )
 
 _target_shasums=(
-    caea8f24197232c25de0e387567af452e0d57b9103ef8acef167814f9acda08c
+  caea8f24197232c25de0e387567af452e0d57b9103ef8acef167814f9acda08c
 )
 
 do_download() {
