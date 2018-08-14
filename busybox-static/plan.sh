@@ -23,8 +23,7 @@ do_prepare() {
   CFLAGS="-I$(pkg_path_for linux-headers-musl)/include -I$(pkg_path_for musl)/include -g"
   build_line "Overriding CFLAGS=$CFLAGS"
 
-  LDFLAGS="-g"
-
+  LDFLAGS="-I$(pkg_path_for linux-headers-musl)/lib -I$(pkg_path_for musl)/lib"
   build_line "Overriding LDFLAGS=$LDFLAGS"
 
   PLAN_CONTEXT="$PLAN_CONTEXT/../busybox" _create_config
@@ -39,8 +38,5 @@ do_prepare() {
 }
 
 do_build() {
-  make -j"$(nproc)" CC=musl-gcc
-
-  # Check that busybox executable is not failing
-  busybox
+  make -j"$(nproc)" CC="musl-gcc -v"
 }
