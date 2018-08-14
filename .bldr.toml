@@ -285,6 +285,8 @@ plan_path = "gamin"
 plan_path = "gawk"
 [gcc]
 plan_path = "gcc"
+[gcc7]
+plan_path = "gcc7"
 [gcc-libs]
 plan_path = "gcc-libs"
 paths = [

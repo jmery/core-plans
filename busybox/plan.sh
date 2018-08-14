@@ -24,7 +24,7 @@ pkg_build_deps=(
   core/findutils
   core/flex
   core/gawk
-  core/gcc
+  core/gcc7
   core/gettext
   core/grep
   core/gzip
