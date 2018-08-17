@@ -18,16 +18,20 @@ pkg_deps=(
   core/db
   core/coreutils
   core/less
+  core/bash
+  core/sed
 )
 pkg_build_deps=(
+  core/gcc
   core/coreutils
   core/diffutils
   core/patch
   core/make
-  core/gcc
   core/procps-ng
   core/inetutils
   core/iana-etc
+  core/grep
+  core/busybox
 )
 pkg_bin_dirs=(bin)
 pkg_lib_dirs=(lib)
@@ -58,7 +62,7 @@ do_prepare() {
 
   #  Make Cwd work with the `pwd` command from `coreutils` (we cannot rely
   #  on `/bin/pwd` exisiting in an environment)
-  sed -i "s,'/bin/pwd','$(pkg_path_for coreutils)/bin/pwd',g" \
+  $(pkg_path_for sed)/bin/sed -i "s,'/bin/pwd','$(pkg_path_for coreutils)/bin/pwd',g" \
     dist/PathTools/Cwd.pm
 
   # Build the `-Dlocincpth` configure flag, which is collection of all
@@ -83,16 +87,6 @@ do_prepare() {
       loclibpth="$loclibpth $(echo "$i" | sed 's,^-L,,')"
     fi
   done
-
-  # When building a shared `libperl`, the `$LD_LIBRARY_PATH` environment
-  # variable is used for shared library lookup. This maps pretty exactly to the
-  # collections of paths already in `$LD_RUN_PATH` with the exception of the
-  # build directory, which will contain the build shared Perl library.
-  #
-  # Thanks to: http://perl5.git.perl.org/perl.git/blob/c52cb8175c7c08890821789b4c7177b1e0e92558:/INSTALL#l478
-  LD_LIBRARY_PATH="$(pwd):$LD_RUN_PATH"
-  export LD_LIBRARY_PATH
-  build_line "Setting LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
 }
 
 do_build() {
@@ -100,23 +94,24 @@ do_build() {
   export BUILD_ZLIB=False
   export BUILD_BZIP2=0
 
-  sh Configure \
+  $(pkg_path_for core/bash)/bin/sh Configure \
     -de \
     -Dprefix="$pkg_prefix" \
+    -Dvendorprefix="$pkg_prefix" \
+    -Dcc=$(pkg_path_for gcc)/bin/gcc \
     -Dman1dir="$pkg_prefix/share/man/man1" \
     -Dman3dir="$pkg_prefix/share/man/man3" \
     -Dlocincpth="$locincpth" \
     -Dloclibpth="$loclibpth" \
-    -Dpager="$(pkg_path_for less)/bin/less -isR" \
+    -Dpager="$(pkg_path_for core/less)/bin/less -isR" \
     -Dinstallstyle=lib/perl5 \
     -Uinstallusrbinperl \
     -Duseshrplib \
     -Dusethreads \
     -Dinc_version_list=none \
     -Dlddlflags="-shared ${LDFLAGS}" \
-    -Dldflags="${LDFLAGS}"
+    -Dldflags="${LDFLAGS}" \
   make -j"$(nproc)"
-
   # Clear temporary build time environment variables
   unset BUILD_ZLIB BUILD_BZIP2
 }
