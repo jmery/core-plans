@@ -25,4 +25,14 @@ do_prepare() {
 
   export BUILD_CC=musl-gcc
   build_line "Setting BUILD_CC=$BUILD_CC"
+
+  export ZLIB
+  ZLIB=$(pkg_path_for core/zlib-musl)
+  build_line "Setting ZLIB=$ZLIB"
+  export ZLIB_LIBPATH
+  ZLIB_LIB="${ZLIB}/lib"
+  build_line "Setting ZLIB_LIB=$ZLIB_LIB"
+  export ZLIB_INCLUDE  
+  ZLIB_INCLUDE="${ZLIB}/include"
+  build_line "Setting ZLIB_INCLUDE=$ZLIB_INCLUDE"
 }

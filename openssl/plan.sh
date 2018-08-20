@@ -56,27 +56,37 @@ do_prepare() {
 
   export BUILD_CC=gcc
   build_line "Setting BUILD_CC=$BUILD_CC"
+
+  export ZLIB
+  ZLIB=$(pkg_path_for core/zlib)
+  build_line "Setting ZLIB=$ZLIB"
+  export ZLIB_LIBPATH
+  ZLIB_LIB="${ZLIB}/lib"
+  build_line "Setting ZLIB_LIB=$ZLIB_LIB"
+  export ZLIB_INCLUDE  
+  ZLIB_INCLUDE="${ZLIB}/include"
+  build_line "Setting ZLIB_INCLUDE=$ZLIB_INCLUDE"
 }
 
-  do_build() {
-    # Set PERL var for scripts in `do_check` that use Perl
-    PERL=$(pkg_path_for core/perl)/bin/perl
-    export PERL
-    $(pkg_path_for core/perl)/bin/perl ./Configure \
-        no-idea \
-        no-mdc2 \
-        no-rc5 \
-        zlib \
-        shared \
-        disable-gost \
-        --prefix="${pkg_prefix}" \
-        --openssldir=ssl \
-        -I$(pkg_path_for core/zlib)/include \
-        -L$(pkg_path_for core/zlib)/lib \
-        linux-x86_64
+do_build() {
+   # Set PERL var for scripts in `do_check` that use Perl
+   PERL=$(pkg_path_for core/perl)/bin/perl
+   export PERL
+   $(pkg_path_for core/perl)/bin/perl ./Configure \
+       no-idea \
+       no-mdc2 \
+       no-rc5 \
+       zlib \
+       shared \
+       disable-gost \
+       --prefix="${pkg_prefix}" \
+       --openssldir=ssl \
+       -I$ZLIB_INCLUDE \
+       -L$ZLIB_LIB \
+       linux-x86_64
 
-    make CC= depend
-    make CC="$BUILD_CC"
+   make CC= depend
+   make CC="$BUILD_CC"
 }
 
 do_check() {
