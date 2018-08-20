@@ -58,24 +58,25 @@ do_prepare() {
   build_line "Setting BUILD_CC=$BUILD_CC"
 }
 
-do_build() {
-  # Set PERL var for scripts in `do_check` that use Perl
-  PERL=$(pkg_path_for core/perl)/bin/perl
-  export PERL
-  # shellcheck disable=SC2086
-  ./config \
-    --prefix="${pkg_prefix}" \
-    --openssldir=ssl \
-    no-idea \
-    no-mdc2 \
-    no-rc5 \
-    zlib \
-    shared \
-    disable-gost \
-    $CFLAGS \
-    $LDFLAGS
-  env CC= make depend
-  make CC="$BUILD_CC"
+  do_build() {
+    # Set PERL var for scripts in `do_check` that use Perl
+    PERL=$(pkg_path_for core/perl)/bin/perl
+    export PERL
+    $(pkg_path_for core/perl)/bin/perl ./Configure \
+        no-idea \
+        no-mdc2 \
+        no-rc5 \
+        zlib \
+        shared \
+        disable-gost \
+        --prefix="${pkg_prefix}" \
+        --openssldir=ssl \
+        -I$(pkg_path_for core/zlib)/include \
+        -L$(pkg_path_for core/zlib)/lib \
+        linux-x86_64
+
+    make CC= depend
+    make CC="$BUILD_CC"
 }
 
 do_check() {
