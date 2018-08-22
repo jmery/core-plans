@@ -18,7 +18,7 @@ pkg_build_deps=(
   core/dosfstools
   core/flex
   core/freetype
-  core/gcc
+  core/gcc7
   core/gettext
   core/git
   core/m4
