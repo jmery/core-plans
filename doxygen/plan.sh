@@ -1,12 +1,12 @@
 pkg_name=doxygen
 pkg_origin=core
-pkg_version=1.8.11
+pkg_version=1.8.14
 pkg_license=('GPL-2.0')
 pkg_description="Generate documentation for several programming languages"
 pkg_upstream_url=http://www.doxygen.org/
 pkg_maintainer="The Habitat Maintainers <humans@habitat.sh>"
-pkg_source="https://ftp.stack.nl/pub/users/dimitri/${pkg_name}-${pkg_version}.src.tar.gz"
-pkg_shasum=65d08b46e48bd97186aef562dc366681045b119e00f83c5b61d05d37ea154049
+pkg_source="https://github.com/doxygen/doxygen/archive/Release_1_8_11.tar.gz"
+pkg_shasum=86263cb4ce1caa41937465f73f644651bd73128d685d35f18dea3046c7c42c12
 pkg_build_deps=(
   core/bison
   core/cmake
@@ -23,7 +23,13 @@ pkg_deps=(
   core/glibc
   core/libiconv
 )
+
 pkg_bin_dirs=(bin)
+
+do_unpack() {
+  mkdir -p $HAB_CACHE_SRC_PATH/${pkg_name}-${pkg_version}
+  tar zxf $HAB_CACHE_SRC_PATH/$pkg_filename -C $HAB_CACHE_SRC_PATH/${pkg_name}-${pkg_version} --strip-components=1
+}
 
 do_build() {
   mkdir -p build
