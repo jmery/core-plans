@@ -9,7 +9,7 @@ pkg_source="http://cdn.postfix.johnriley.me/mirrors/${pkg_name}-release/official
 pkg_shasum="54f514dae42b5275cb4bc9c69283f16c06200b71813d0bb696568c4ba7ae7e3b"
 pkg_build_deps=(
   core/make
-  core/gcc
+  core/gcc7
   core/sed
   core/gawk
 )
@@ -17,7 +17,7 @@ pkg_deps=(
   # postfix deps
   core/coreutils
   core/cyrus-sasl
-  core/db
+  core/db5
   core/glibc
   core/libnsl
   core/openssl
@@ -33,7 +33,7 @@ pkg_svc_user=root
 do_build() {
   POSTFIX_CCARGS=(
     -DHAS_DB
-      -I$(pkg_path_for db)/include
+      -I$(pkg_path_for db5)/include
     -DHAS_NIS
       -I$(pkg_path_for core/libnsl)/include
     -DUSE_TLS
@@ -45,7 +45,7 @@ do_build() {
 
   POSTFIX_AUXLIBS=(
     -ldb
-      -L$(pkg_path_for core/db)/lib
+      -L$(pkg_path_for core/db5)/lib
     -lnsl
       -L$(pkg_path_for core/libnsl)/lib
     -lresolv
@@ -58,6 +58,7 @@ do_build() {
   build_line "Setting POSTFIX_AUXLIBS=${POSTFIX_AUXLIBS[*]}"
 
   make makefiles CCARGS="${POSTFIX_CCARGS[*]}" AUXLIBS="${POSTFIX_AUXLIBS[*]}"
+
   make
 }
 
