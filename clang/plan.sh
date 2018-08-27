@@ -1,13 +1,13 @@
 pkg_name=clang
 pkg_origin=core
-pkg_version=5.0.1
+pkg_version=6.0.1
 pkg_license=('NCSA')
 pkg_description="LLVM native C/C++/Objective-C compiler"
 pkg_upstream_url="http://clang.llvm.org/"
 pkg_maintainer="The Habitat Maintainers <humans@habitat.sh>"
 pkg_filename="${pkg_name}-${pkg_version}.src.tar.xz"
 pkg_source="http://llvm.org/releases/${pkg_version}/cfe-${pkg_version}.src.tar.xz"
-pkg_shasum="135f6c9b0cd2da1aff2250e065946258eb699777888df39ca5a5b4fe5e23d0ff"
+pkg_shasum="7c243f1485bddfdfedada3cd402ff4792ea82362ff91fbdac2dae67c6026b667"
 pkg_deps=(
   core/gcc-libs
   core/glibc

@@ -21,7 +21,7 @@ pkg_build_deps=(
 pkg_deps=()
 
 do_prepare() {
-  PLAN_CONTEXT=$PLAN_CONTEXT/../coreutils _patch_files
+  PLAN_CONTEXT=$PLAN_CONTEXT/../coreutils
 }
 
 do_build() {
