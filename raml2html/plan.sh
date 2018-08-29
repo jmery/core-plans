@@ -9,6 +9,8 @@ pkg_upstream_url="https://github.com/raml2html/raml2html"
 pkg_bin_dirs=(bin)
 
 do_build() {
+  # See https://github.com/habitat-sh/core-plans/issues/1566 for more info
+  rm /root/.npmrc
   env PREFIX="$CACHE_PATH" npm i -g "${pkg_name}@$pkg_version"
 }
 
