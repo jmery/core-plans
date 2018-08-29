@@ -19,7 +19,7 @@ pkg_build_deps=(
   core/make
   core/which
   core/go
-  core/gcc
+  core/gcc7
   core/cmake
   core/autoconf
 )
