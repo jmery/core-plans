@@ -6,7 +6,7 @@ pkg_description="A dead simple, no frills Go cross compile tool"
 pkg_license=("MPL-2.0")
 pkg_source=https://github.com/mitchellh/gox/archive/master.tar.gz # I'm killing a kitten.
 pkg_upstream_url=https://github.com/mitchellh/gox
-pkg_shasum=62d24ff55069bb3b6d75277585d723fdca6fef524602090c46b466098d49f1ba
+pkg_shasum=691b7413300fc937169d0d29f545b92b89cacfba86c13e11c596e77daec6e9f6
 pkg_build_deps=(core/git core/go)
 pkg_bin_dirs=(bin)
 
