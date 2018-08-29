@@ -16,7 +16,7 @@ pkg_deps=(
 )
 pkg_build_deps=(
   core/cmake
-  core/gcc
+  core/gcc7
   core/make
 )
 pkg_include_dirs=(include)
@@ -24,7 +24,7 @@ pkg_lib_dirs=(lib64)
 
 do_prepare() {
   export LD_LIBRARY_PATH
-  LD_LIBRARY_PATH="$(pkg_path_for gcc)/lib"
+  LD_LIBRARY_PATH="$(pkg_path_for gcc7)/lib"
 }
 
 do_build() {
