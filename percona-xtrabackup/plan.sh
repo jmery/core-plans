@@ -13,7 +13,7 @@ pkg_build_deps=(
   core/bison
   core/boost159
   core/cmake
-  core/gcc
+  core/gcc7
   core/make
   core/ncurses
   core/vim
