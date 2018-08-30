@@ -51,7 +51,7 @@ _common_prepare() {
   # Instead, we link rm to maintain integrity.
   # Reference: https://www.openssl.org/docs/fips/UserGuide-2.0.pdf
   if [[ ! -f "/bin/rm" ]]; then
-    hab pkg binlink core/coreutils rm
+    hab pkg binlink core/coreutils /bin/rm
     BINLINKED_RM=true
   fi
 }
@@ -61,16 +61,6 @@ do_prepare() {
 
   export BUILD_CC=gcc
   build_line "Setting BUILD_CC=$BUILD_CC"
-
-  export ZLIB
-  ZLIB=$(pkg_path_for core/zlib)
-  build_line "Setting ZLIB=$ZLIB"
-  export ZLIB_LIBPATH
-  ZLIB_LIB="${ZLIB}/lib"
-  build_line "Setting ZLIB_LIB=$ZLIB_LIB"
-  export ZLIB_INCLUDE  
-  ZLIB_INCLUDE="${ZLIB}/include"
-  build_line "Setting ZLIB_INCLUDE=$ZLIB_INCLUDE"
 }
 
 do_build() {
@@ -89,7 +79,7 @@ do_build() {
        disable-gost \
        --prefix="${pkg_prefix}" \
        --openssldir=ssl \
-       linux-x86_64
+       linux-x86_64 \
        --with-fipsdir="$(pkg_path_for core/openssl-fips)" \
        fips
 
