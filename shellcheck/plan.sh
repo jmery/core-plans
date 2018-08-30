@@ -22,6 +22,7 @@ pkg_deps=(
 pkg_build_deps=(
   core/cabal-install
   core/ghc
+  core/gcc-libs7
 )
 
 do_clean() {
@@ -36,7 +37,7 @@ do_build() {
   cabal update
 
   # Install dependencies
-  cabal install --only-dependencies
+  cabal install --only-dependencies --jobs=1
 
   # Configure and Build
   cabal configure --prefix="$pkg_prefix"
