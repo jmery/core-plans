@@ -109,8 +109,12 @@ plan_path = "certstrap"
 plan_path = "check"
 [clang]
 plan_path = "clang"
+[clang5]
+plan_path = "clang5"
 [clang-tools-extra]
 plan_path = "clang-tools-extra"
+[clang-tools-extra5]
+plan_path = "clang-tools-extra5"
 [clens]
 plan_path = "clens"
 [clingo]
@@ -161,6 +165,8 @@ plan_path = "cyrus-sasl"
 plan_path = "damageproto"
 [db]
 plan_path = "db"
+[db5]
+plan_path = "db5"
 [dbus]
 plan_path = "dbus"
 [dd-agent]
@@ -291,6 +297,11 @@ plan_path = "gcc7"
 plan_path = "gcc-libs"
 paths = [
   "gcc/*",
+]
+[gcc-libs]
+plan_path = "gcc-libs7"
+paths = [
+  "gcc7/*",
 ]
 [gdal]
 plan_path = "gdal"
