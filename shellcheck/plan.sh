@@ -22,7 +22,6 @@ pkg_deps=(
 pkg_build_deps=(
   core/cabal-install
   core/ghc
-  core/gcc-libs7
 )
 
 do_clean() {
