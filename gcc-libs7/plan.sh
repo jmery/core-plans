@@ -39,14 +39,10 @@ _gcc_libs=(
 
 do_install() {
   mkdir -pv "$pkg_prefix/lib"
-build_line "================"
-build_line "one"
   for lib in "${_gcc_libs[@]}"; do
     cp -av "$(pkg_path_for gcc7)/lib/${lib}".* "$pkg_prefix/lib"/
   done
 
-build_line "================"
-build_line "two"
   rm -fv "$pkg_prefix/lib"/*.spec "$pkg_prefix/lib"/*.py
 
   mkdir -pv "$pkg_prefix/share/licenses"
