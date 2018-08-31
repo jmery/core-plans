@@ -62,7 +62,7 @@ do_prepare() {
 
   #  Make Cwd work with the `pwd` command from `coreutils` (we cannot rely
   #  on `/bin/pwd` exisiting in an environment)
-  $(pkg_path_for sed)/bin/sed -i "s,'/bin/pwd','$(pkg_path_for coreutils)/bin/pwd',g" \
+  "$(pkg_path_for sed)/bin/sed" -i "s,'/bin/pwd','$(pkg_path_for coreutils)/bin/pwd',g" \
     dist/PathTools/Cwd.pm
 
   # Build the `-Dlocincpth` configure flag, which is collection of all
@@ -94,11 +94,11 @@ do_build() {
   export BUILD_ZLIB=False
   export BUILD_BZIP2=0
 
-  $(pkg_path_for core/bash)/bin/sh Configure \
+  "$(pkg_path_for core/bash)/bin/sh" Configure \
     -de \
     -Dprefix="$pkg_prefix" \
     -Dvendorprefix="$pkg_prefix" \
-    -Dcc=$(pkg_path_for gcc)/bin/gcc \
+    -Dcc="$(pkg_path_for gcc)/bin/gcc" \
     -Dman1dir="$pkg_prefix/share/man/man1" \
     -Dman3dir="$pkg_prefix/share/man/man3" \
     -Dlocincpth="$locincpth" \

@@ -27,8 +27,8 @@ pkg_deps=(
 pkg_bin_dirs=(bin)
 
 do_unpack() {
-  mkdir -p $HAB_CACHE_SRC_PATH/${pkg_name}-${pkg_version}
-  tar zxf $HAB_CACHE_SRC_PATH/$pkg_filename -C $HAB_CACHE_SRC_PATH/${pkg_name}-${pkg_version} --strip-components=1
+  mkdir -p "$HAB_CACHE_SRC_PATH/${pkg_name}-${pkg_version}"
+  tar zxf "$HAB_CACHE_SRC_PATH/$pkg_filename" -C "$HAB_CACHE_SRC_PATH/${pkg_name}-${pkg_version}" --strip-components=1
 }
 
 do_build() {

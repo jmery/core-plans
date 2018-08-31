@@ -67,7 +67,7 @@ do_build() {
    # Set PERL var for scripts in `do_check` that use Perl
    PERL=$(pkg_path_for core/perl)/bin/perl
    export PERL
-   $(pkg_path_for core/perl)/bin/perl ./Configure \
+   "$(pkg_path_for core/perl)/bin/perl" ./Configure \
        no-idea \
        no-mdc2 \
        no-rc5 \

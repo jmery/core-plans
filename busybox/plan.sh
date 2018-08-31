@@ -80,6 +80,7 @@ build_line "HELLO"
 build_line "CFLAGS=$CFLAGS"
 build_line "LDFLAGS=$LDFLAGS"
 
+  # shellcheck disable=SC2002
   cat "$PLAN_CONTEXT/config" \
     | sed \
       -e "s,@pkg_prefix@,$pkg_prefix,g" \
