@@ -32,7 +32,7 @@ do_prepare() {
   export ZLIB_LIBPATH
   ZLIB_LIB="${ZLIB}/lib"
   build_line "Setting ZLIB_LIB=$ZLIB_LIB"
-  export ZLIB_INCLUDE  
+  export ZLIB_INCLUDE
   ZLIB_INCLUDE="${ZLIB}/include"
   build_line "Setting ZLIB_INCLUDE=$ZLIB_INCLUDE"
 }

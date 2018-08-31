@@ -21,4 +21,3 @@ pkg_build_deps=(
 )
 
 pkg_dirname="db-${pkg_version}"
-
