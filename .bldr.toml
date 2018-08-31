@@ -298,7 +298,7 @@ plan_path = "gcc-libs"
 paths = [
   "gcc/*",
 ]
-[gcc-libs]
+[gcc-libs7]
 plan_path = "gcc-libs7"
 paths = [
   "gcc7/*",
