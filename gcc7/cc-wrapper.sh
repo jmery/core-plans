@@ -1,3 +1,4 @@
+# shellcheck disable=SC1008,SC2068
 #!@shell@
 #
 # # Usage
