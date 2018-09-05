@@ -39,6 +39,7 @@ core-plans/db
 core-plans/inetutils
 core-plans/iana-etc
 core-plans/less
+core-plans/busybox
 core-plans/perl
 core-plans/diffutils
 core-plans/autoconf

@@ -110,7 +110,7 @@ do_build() {
     -Dusethreads \
     -Dinc_version_list=none \
     -Dlddlflags="-shared ${LDFLAGS}" \
-    -Dldflags="${LDFLAGS}" \
+    -Dldflags="${LDFLAGS}"
   make -j"$(nproc)"
   # Clear temporary build time environment variables
   unset BUILD_ZLIB BUILD_BZIP2
