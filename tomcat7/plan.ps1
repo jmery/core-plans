@@ -8,7 +8,7 @@ $pkg_description="The Apache Tomcat software is an open source implementation of
 $pkg_upstream_url="http://tomcat.apache.org/"
 $pkg_source="http://archive.apache.org/dist/tomcat/tomcat-7/v${pkg_version}/bin/apache-tomcat-${pkg_version}-windows-x64.zip"
 $pkg_shasum="5ec44c0aa56be194cc32f5cf52bab4767a6fef6faa05aab2019233c89f0f3aa0"
-$pkg_deps=@("core/7zip")
+$pkg_deps=@("core/jre8")
 $pkg_exports=@{
   port="server.port"
 }
@@ -16,28 +16,8 @@ $pkg_exposes=${
   "port"
 }
 
-# The default implementation extracts your tarball source file into HAB_CACHE_SRC_PATH. The
-# supported archives are: .tar, .tar.bz2, .tar.gz, .tar.xz, .rar, .zip, .Z, .7z. If the file
-# archive could not be found or was not supported, then a message will be printed to stderr
-# with additional information.
-
-#function Invoke-Unpack {
-#  local source_dir=$HAB_CACHE_SRC_PATH/${pkg_name}-${pkg_version}
-#  local unpack_file="$HAB_CACHE_SRC_PATH/$pkg_filename"
-
-# mkdir "$source_dir"
-#  pushd "$source_dir" >/dev/null
-#  tar xz --strip-components=1 -f "$unpack_file"
-
-#  popd > /dev/null
-#}
-
-# The default implementation is to update the prefix path for the configure script to
-# use $pkg_prefix and then run make to compile the downloaded source. This means the
-# script in the default implementation does ./configure --prefix=$pkg_prefix && make. You
-# should override this behavior if you have additional configuration changes to make or
-# other software to build and install as part of building your package.
-#function Invoke-Build{}
+# Tomcat for Windows is precompiled so we override the default build
+function Invoke-Build{}
 
 # The default implementation is to run make install on the source files and place the compiled
 # binaries or libraries in HAB_CACHE_SRC_PATH/$pkg_dirname, which resolves to a path like
@@ -45,13 +25,15 @@ $pkg_exposes=${
 # --prefix option when calling the configure script. You should override this behavior if you
 # need to perform custom installation steps, such as copying files from HAB_CACHE_SRC_PATH
 # to specific directories in your package, or installing pre-built binaries into your package.
-#function Invoke-Install{
-#    build_line "Performing install"
-#    mkdir -p "${pkg_prefix}/tc"
-#    cp -vR ./* "${pkg_prefix}/tc"
+function Invoke-Install{
+    Write-BuildLine "Performing install"
+    New-Item -Path "${pkg_prefix}/tc"
+    Copy-Item -Recurse "$HAB_CACHE_SRC_PATH/$pkg_name-$pkg_version/apache-tomcat-${pkg_version}-windows-x64/" "${pkg_prefix}/tc"
+
+    #Copy-Item "$HAB_CACHE_SRC_PATH/$pkg_name-$pkg_version/$pkg_name.exe
 
     # default permissions included in the tarball don't give any world access
-#    find "${pkg_prefix}/tc" -type d -exec chmod -v 755 {} +
-#    find "${pkg_prefix}/tc" -type f -exec chmod -v 644 {} +
-#    find "${pkg_prefix}/tc" -type f -name '*.sh' -exec chmod -v 755 {} +
-#}
+    #find "${pkg_prefix}/tc" -type d -exec chmod -v 755 {} +
+    #find "${pkg_prefix}/tc" -type f -exec chmod -v 644 {} +
+    #find "${pkg_prefix}/tc" -type f -name '*.sh' -exec chmod -v 755 {} +
+}
