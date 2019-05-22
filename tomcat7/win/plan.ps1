@@ -30,8 +30,7 @@ function Invoke-Install{
     mkdir -Path "${pkg_prefix}/tc"
     Copy-Item -Recurse "$HAB_CACHE_SRC_PATH/$pkg_name-$pkg_version/apache-tomcat-${pkg_version}/*" "${pkg_prefix}/tc"
 
-    #Copy-Item "$HAB_CACHE_SRC_PATH/$pkg_name-$pkg_version/$pkg_name.exe
-
+    # From linux plan; do we need a variation of this for windows?
     # default permissions included in the tarball don't give any world access
     #find "${pkg_prefix}/tc" -type d -exec chmod -v 755 {} +
     #find "${pkg_prefix}/tc" -type f -exec chmod -v 644 {} +
