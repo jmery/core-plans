@@ -27,8 +27,8 @@ function Invoke-Build{}
 # to specific directories in your package, or installing pre-built binaries into your package.
 function Invoke-Install{
     Write-BuildLine "Performing install"
-    New-Item -Path "${pkg_prefix}/tc"
-    Copy-Item -Recurse "$HAB_CACHE_SRC_PATH/$pkg_name-$pkg_version/apache-tomcat-${pkg_version}-windows-x64/" "${pkg_prefix}/tc"
+    mkdir -Path "${pkg_prefix}/tc"
+    Copy-Item -Recurse "$HAB_CACHE_SRC_PATH/$pkg_name-$pkg_version/apache-tomcat-${pkg_version}/*" "${pkg_prefix}/tc"
 
     #Copy-Item "$HAB_CACHE_SRC_PATH/$pkg_name-$pkg_version/$pkg_name.exe
 
