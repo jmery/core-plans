@@ -1,0 +1,11 @@
+Write-Host "Starting Apache Tomcat"
+
+$env:JAVA_HOME="{{pkgPathFor "core/jre8"}}"
+$env:TOMCAT_HOME="{{pkg.svc_var_path}}/tc"
+$env:CATALINA_OPTS="{{cfg.server.catalina-opts}}"
+
+Write-Host "JAVA_HOME=" + $env:JAVA_HOME
+Write-Host "CATALINA " + $env:CATALINA_OPTS
+
+Write-Host "Executing Tomcat here: " + $env:TOMCAT_HOME + "/bin/catalina.sh"
+#exec ${TOMCAT_HOME}/bin/catalina.sh run

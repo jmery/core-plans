@@ -17,20 +17,17 @@ Write-Host "pkg.svc_static_path   = {{pkg.svc_static_path}}"
 Write-Host "pkg.svc_var_path      = {{pkg.svc_var_path}}"
 
 # Move directories that ship in the package into place
-Copy-Item -Recurse {{pkg.path}}/tc {{pkg.svc_var_path}}/
+Write-Host "Copying files and directories ..."
+Copy-Item -Recurse "{{pkg.path}}/tc" "{{pkg.svc_var_path}}/"
+Write-Host "Copy complete."
 
 # Symlink config files into $TOMCAT_HOME/conf
-Get-ChildItem "{{pkg.svc_config_path}}" 
+Get-ChildItem "{{pkg.svc_config_path}}" |
 Foreach-Object {
     Write-Host "Linking: " + $_.FullName
-
+    New-Item -ItemType SymbolicLink -Name {{pkg.svc_var_path}}/tc/$_.Name -Value $_.FullName
+    # New-Item -Path "{{pkg.svc_var_path}}/tc/$_.Name" -ItemType SymbolicLink -Value $_.FullName
 }
-
-# New-Item -Path C:\LinkDir -ItemType SymbolicLink -Value F:\RealDir
-  
-#  target="${file//_//}"
-#  ln -vsf {{pkg.svc_config_path}}/$file {{pkg.svc_var_path}}/tc/$target
-#done
 
 #chown -R hab:hab {{pkg.svc_path}}/*
 

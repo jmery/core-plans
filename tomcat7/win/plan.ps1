@@ -19,15 +19,10 @@ $pkg_exposes=${
 # Tomcat for Windows is precompiled so we override the default build
 function Invoke-Build{}
 
-# The default implementation is to run make install on the source files and place the compiled
-# binaries or libraries in HAB_CACHE_SRC_PATH/$pkg_dirname, which resolves to a path like
-# /hab/cache/src/packagename-version/. It uses this location because of do_build() using the
-# --prefix option when calling the configure script. You should override this behavior if you
-# need to perform custom installation steps, such as copying files from HAB_CACHE_SRC_PATH
-# to specific directories in your package, or installing pre-built binaries into your package.
+# Default install is to run `make` so we override the default
 function Invoke-Install{
     Write-BuildLine "Performing install"
-    mkdir -Path "${pkg_prefix}/tc"
+    New-Item -ItemType Directory -Path "${pkg_prefix}/tc"
     Copy-Item -Recurse "$HAB_CACHE_SRC_PATH/$pkg_name-$pkg_version/apache-tomcat-${pkg_version}/*" "${pkg_prefix}/tc"
 
     # From linux plan; do we need a variation of this for windows?
